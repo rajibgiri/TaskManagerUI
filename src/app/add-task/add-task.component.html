@@ -1,3 +1,56 @@
-<p>
-  add-task works!
-</p>
+<h1 class="display-6 shadow-lg p-3 mb-5 bg-white rounded">Add Task</h1>
+
+<div class="jumbotron shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="container">
+      <div class="alert alert-success" role="alert">
+          Data Saved successfully!
+        </div>
+        <div class="alert alert-danger" role="alert">
+            Unable to save Data, Please try again!
+          </div>
+    <div class="lead">
+      <form>
+        <div class="form-group row">
+          <label class="col-sm-2 col-md-3 col-lg-2 col-form-label">Task</label>
+          <div class="col-sm-10 col-md-9 col-lg-10">
+            <input type="text" class="form-control" id="task" value="" placeholder="Task">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-md-3 col-lg-2 col-form-label">Priority</label>
+          <div class="col-sm-10 col-md-9 col-lg-10">
+            <label class="range-label">0</label>
+            <input type="range" class="form-control-range" min="0" max="30">
+            <label class="range-label">30</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-md-3 col-lg-2 col-form-label">Parent Task</label>
+          <div class="col-sm-10 col-md-9 col-lg-10">
+            <input type="text" class="form-control" id="parentTask" value="" placeholder="Parent Task">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-md-3 col-lg-2 col-form-label">Start Date</label>
+          <div class="col-sm-4 col-md-3 col-lg-4">
+            <input type="date" class="form-control" value="">
+          </div>
+          <label class="col-sm-2 col-md-3 col-lg-2 col-form-label">End Date</label>
+          <div class="col-sm-4 col-md-3 col-lg-4">
+            <input type="date" class="form-control" value="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-secondary btn-lg btn-block">Reset</button>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Add Task</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

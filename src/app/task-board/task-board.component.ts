@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-task-board',
   templateUrl: './task-board.component.html',
@@ -12,4 +11,16 @@ export class TaskBoardComponent implements OnInit {
   ngOnInit() {
   }
 
+  isAddTaskSelected = true;
+  isViewTaskSelected = false;
+  toggleTab(){
+    if (this.isAddTaskSelected) {
+      this.isViewTaskSelected =true;
+      this.isAddTaskSelected =false;
+    }
+    else {
+      this.isViewTaskSelected =false;
+      this.isAddTaskSelected =true;
+    }
+  }
 }

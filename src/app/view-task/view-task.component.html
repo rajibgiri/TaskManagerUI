@@ -1,3 +1,115 @@
-<p>
-  view-task works!
-</p>
+<h1 class="display-6 shadow-lg p-3 mb-5 bg-white rounded">View Task</h1>
+
+<div class="jumbotron shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="row form-group">
+          <label class="col-form-label col-sm-1 col-md-3 col-lg-1">Task</label>
+      <div class="col-sm-5 col-md-3 col-lg-5">
+          <input type="text" class="form-control" id="task" value="" placeholder="Task">
+      </div>
+          <label class="col-form-label col-sm-1 col-md-3 col-lg-1">Parent Task</label>
+      <div class="col-sm-5 col-md-3 col-lg-5">
+          <input type="text" class="form-control" id="parentTask" value="" placeholder="Parent Task">
+      </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-form-label col-sm-2 col-md-3 col-lg-2">Priority From</label>
+        <div class="col-sm-1 col-md-3 col-lg-1">
+            <input type="number" class="form-control" placeholder="From">
+        </div>
+          <label class="col-form-label col-sm-2 col-md-3 col-lg-2">Priority To</label>
+        <div class="col-sm-1 col-md-3 col-lg-1">
+           <input type="number" class="form-control" placeholder="To">
+        </div>
+            <label class="col-form-label col-sm-1 col-md-3 col-lg-1">Start Date</label>
+        <div class="col-sm-2 col-md-3 col-lg-2">
+            <input type="date" class="form-control" placeholder="Start Date">
+        </div>
+          <label class="col-form-label col-sm-1 col-md-3 col-lg-1">End Date</label>
+        <div class="col-sm-2 col-md-3 col-lg-2">
+           <input type="date" class="form-control" placeholder="End Date">
+        </div>
+      </div>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col-sm-9">
+          <div class="alert alert-info" role="alert">
+              A simple dark alert—check it out!
+            </div>
+      </div>
+      <div class="col-sm-3">
+      <button type="button" class="btn btn-primary btn-lg btn-block">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="row table-responsive">
+      <table class="table">
+          <thead class="thead-light">
+            <tr>
+               <th scope="col">#</th>
+              <th scope="col">Task</th>
+              <th scope="col">Parent</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
+                  </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>
+                  <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
+                    </div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>
+                  <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
+                      <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
+                    </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+
+
+  <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Task</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-task></app-add-task>
+      </div>
+    </ng-template>
