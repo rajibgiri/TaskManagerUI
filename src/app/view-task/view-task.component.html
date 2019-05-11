@@ -55,46 +55,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Mark</td>
-              <td>Otto</td>
+            <tr *ngFor="let task of taskList; index as i;trackBy:trackByFn">
+              <th scope="row">{{i+1}}</th>
+              <td>{{task.Task}}</td>
+              <td>{{task.ParentTask}}</td>
+              <td>{{task.Priority}}</td>
+              <td>{{task.StartDate  | date: 'dd-MMM-yyyy' }}</td>
+              <td>{{task.EndDate | date: 'dd-MMM-yyyy' }}</td>
               <td>
                   <div class="btn-group" role="group">
                     <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
                     <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
                   </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>
-                  <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
-                      <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
-                    </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>
-                  <div class="btn-group" role="group">
-                      <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
-                      <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
-                    </div>
               </td>
             </tr>
           </tbody>
