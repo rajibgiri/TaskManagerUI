@@ -1,7 +1,8 @@
 {
     "/restful":{
-        "target":"http://localhost/TaskManagerAPI/api/task",
-        "secure":"true"
+        "target":"http://localhost:53802/api/task",
+        "secure":"true",
+        "changeOrigin":"true"
     }
 
 }

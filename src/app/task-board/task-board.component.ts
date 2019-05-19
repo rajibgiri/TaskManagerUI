@@ -13,8 +13,8 @@ export class TaskBoardComponent implements OnInit {
 
   isAddTaskSelected = true;
   isViewTaskSelected = false;
-  toggleTab(){
-    if (this.isAddTaskSelected) {
+  toggleTab(val){
+    if (!val) {
       this.isViewTaskSelected =true;
       this.isAddTaskSelected =false;
     }

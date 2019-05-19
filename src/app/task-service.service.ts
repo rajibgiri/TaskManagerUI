@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -12,18 +12,54 @@ export class TaskServiceService {
 
   constructor(private _http:HttpClient) { }
 //:Observable<ITask[]>
-  getTaskList()
+  getTaskList<ITask>(): Observable<ITask>
   {
-    //return;
     //return this._http.get(this.API_URL).pipe(map((response:Response)=>response.json()));
-     return this._http.get <ITask>(this.API_URL);
+    let lst : Observable<ITask>;
+    lst = this._http.get<ITask>(this.API_URL);
+    return lst;
   }
 
-  private extraxctData(res:Response){
-    let body = res;
-    return body ||{};
+  saveTask(task:ITask){
+    return this._http.post(this.API_URL,task,     
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(
+      (val) => {
+         // console.log("POST call successful value returned in body", val);
+      },
+      response => {
+          //console.log("POST call in error", response);
+      },
+      () => {
+         // console.log("The POST observable is now completed.");
+      });;
   }
 
+  updateTask(task:ITask){
+    return this._http.put(this.API_URL,task,     
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(
+      (val) => {
+         // console.log("POST call successful value returned in body", val);
+      },
+      response => {
+         // console.log("POST call in error", response);
+      },
+      () => {
+         // console.log("The POST observable is now completed.");
+      });;
+  }
+
+  deleteTask(taskId:string){
+    return this._http.delete(this.API_URL+"/"+taskId).subscribe(
+      (val) => {
+         // console.log("POST call successful value returned in body", val);
+      },
+      response => {
+        //  console.log("POST call in error", response);
+      },
+      () => {
+         // console.log("The POST observable is now completed.");
+      });;
+  }
 }
 
 export interface ITask {
@@ -31,8 +67,8 @@ export interface ITask {
   Task:string;
   ParentID:number;
   ParentTask:string;
-  StartDate:Date;
-  EndDate:Date;
+  StartDate:string;
+  EndDate:string;
   Priority:number; 
   IsClosed:boolean;
 }

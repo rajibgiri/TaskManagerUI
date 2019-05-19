@@ -4,40 +4,43 @@
     <div class="row form-group">
           <label class="col-form-label col-sm-1 col-md-3 col-lg-1">Task</label>
       <div class="col-sm-5 col-md-3 col-lg-5">
-          <input type="text" class="form-control" id="task" value="" placeholder="Task">
+          <input type="text" class="form-control" id="task" value="" [(ngModel)]="searchTaskObj.Task" placeholder="Task">
       </div>
           <label class="col-form-label col-sm-1 col-md-3 col-lg-1">Parent Task</label>
       <div class="col-sm-5 col-md-3 col-lg-5">
-          <input type="text" class="form-control" id="parentTask" value="" placeholder="Parent Task">
+          <input type="text" class="form-control" id="parentTask" value="" [(ngModel)]="searchTaskObj.ParentTask" placeholder="Parent Task">
       </div>
     </div>
     <div class="row form-group">
         <label class="col-form-label col-sm-2 col-md-3 col-lg-2">Priority From</label>
         <div class="col-sm-1 col-md-3 col-lg-1">
-            <input type="number" class="form-control" placeholder="From">
+            <input type="number" class="form-control" placeholder="From" min="0" max="30" [(ngModel)]="searchTaskObj.PriorityFrom">
         </div>
           <label class="col-form-label col-sm-2 col-md-3 col-lg-2">Priority To</label>
         <div class="col-sm-1 col-md-3 col-lg-1">
-           <input type="number" class="form-control" placeholder="To">
+           <input type="number" class="form-control" placeholder="To" min="0" max="30" [(ngModel)]="searchTaskObj.PriorityTo">
         </div>
             <label class="col-form-label col-sm-1 col-md-3 col-lg-1">Start Date</label>
         <div class="col-sm-2 col-md-3 col-lg-2">
-            <input type="date" class="form-control" placeholder="Start Date">
+            <input type="date" class="form-control" placeholder="Start Date" [(ngModel)]="searchTaskObj.StartDate">
         </div>
           <label class="col-form-label col-sm-1 col-md-3 col-lg-1">End Date</label>
         <div class="col-sm-2 col-md-3 col-lg-2">
-           <input type="date" class="form-control" placeholder="End Date">
+           <input type="date" class="form-control" placeholder="End Date" [(ngModel)]="searchTaskObj.EndDate">
         </div>
       </div>
     <hr class="my-4">
     <div class="row">
       <div class="col-sm-9">
-          <div class="alert alert-info" role="alert">
-              A simple dark alert—check it out!
+          <div class="alert alert-info" *ngIf="isSearch">
+             {{searchMessage}}
+            </div>
+            <div class="alert alert-success" *ngIf="isSuccess">
+              {{successMessage}}
             </div>
       </div>
       <div class="col-sm-3">
-      <button type="button" class="btn btn-primary btn-lg btn-block">Search</button>
+      <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="resetSearchForm()">Reset</button>
       </div>
     </div>
   </div>
@@ -55,7 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let task of taskList; index as i;trackBy:trackByFn">
+            <tr *ngFor="let task of taskList|searchFilter: searchTaskObj.Task : searchTaskObj.ParentTask : searchTaskObj.StartDate : searchTaskObj.EndDate : searchTaskObj.PriorityFrom : searchTaskObj.PriorityTo; index as i;trackBy:trackByFn">
               <th scope="row">{{i+1}}</th>
               <td>{{task.Task}}</td>
               <td>{{task.ParentTask}}</td>
@@ -63,9 +66,13 @@
               <td>{{task.StartDate  | date: 'dd-MMM-yyyy' }}</td>
               <td>{{task.EndDate | date: 'dd-MMM-yyyy' }}</td>
               <td>
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(content)">Edit Task</button>
-                    <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold">Close Task</button>
+                  <div class="btn-group" role="group" *ngIf="!task.IsClosed">
+                    <button type="button" class="btn btn-outline-primary btn-sm font-weight-bold" (click)="open(editContent);editTask(task.TaskID)">Edit Task</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm font-weight-bold" (click)="openEndTask(endContent);editTask(task.TaskID,true)">Close Task</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm font-weight-bold" (click)="openEndTask(endContent);editTask(task.TaskID,false)">Delete Task</button>
+                  </div>
+                  <div class="badge badge-danger" *ngIf="task.IsClosed">
+                    This task is already closed !
                   </div>
               </td>
             </tr>
@@ -74,14 +81,33 @@
   </div>
 
 
-  <ng-template #content let-c="close" let-d="dismiss">
+  <ng-template #editContent let-c="close" let-d="dismiss">
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Update Task</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <!-- <h4 class="modal-title" id="modal-basic-title">Update Task</h4> -->
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click');close()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <app-add-task></app-add-task>
+        <app-add-task [EditTask]="selectedTask"></app-add-task>
       </div>
     </ng-template>
+
+    <ng-template #endContent let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{modalButtonText}} Task</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click');close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Are you sure you want to {{modalButtonText}} the Task : <span class="text-primary">"{{selectedTask[0].Task}}"</span>?</strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="d('Cross click');close()">Cancel</button>
+        <button type="button" *ngIf="isEndDelete" class="btn btn-warning" (click)="endTask(selectedTask[0].TaskID)">Yes, {{modalButtonText}} the Task</button>
+        <button type="button" *ngIf="!isEndDelete" class="btn btn-danger" (click)="deleteTask()">Yes, {{modalButtonText}} the Task</button>
+      </div>
+      
+    </ng-template>
+    

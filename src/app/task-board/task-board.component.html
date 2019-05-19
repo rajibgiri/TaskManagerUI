@@ -25,10 +25,10 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link" href="#" (click) ="toggleTab()" [ngClass]="isAddTaskSelected ? 'active' : ''" routerLink="/addTask">Add Task</a>
+        <a class="nav-link" href="#" (click) ="toggleTab(true)" [ngClass]="isAddTaskSelected ? 'active' : ''" routerLink="/addTask">Add Task</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/viewTask" [ngClass]="isViewTaskSelected ? 'active' : ''" (click) ="toggleTab()">View Tasks</a>
+        <a class="nav-link" href="#" routerLink="/viewTask" [ngClass]="isViewTaskSelected ? 'active' : ''" (click) ="toggleTab(false)">View Tasks</a>
       </li>
     </ul>
   </div>

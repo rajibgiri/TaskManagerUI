@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl :"http://localhost/TaskManagerAPI/api/task"
+  apiUrl :"http://localhost:53802/api/task"
+  //"http://localhost/TaskManagerAPI/api/task"
 };
 
 /*
