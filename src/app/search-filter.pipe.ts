@@ -12,10 +12,6 @@ export class SearchFilterPipe implements PipeTransform {
         return;
       }
       if (taskList.length>0) {
-        if (false) {
-          return taskList;
-        }
-        else{
          return taskList.filter((task)=>{
               if (searchTask && task.Task.toLowerCase().indexOf(searchTask.toLowerCase()) === -1){
                   return false;
@@ -39,7 +35,6 @@ export class SearchFilterPipe implements PipeTransform {
               return true;
            //return task.Task.toLowerCase().includes(searchTask.toLowerCase());
          })
-        }
       }
       else {
         return null;
