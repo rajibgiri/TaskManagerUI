@@ -49,14 +49,9 @@ export class ViewTaskComponent implements OnInit {
     this.getTaskList();
   }
   getTaskList(){
-    console.log('In first block');
     this._taskservice.getTaskList<ITask[]>().subscribe((data :ITask[])=> this.taskList = data),
     finalize(()=>{
-      //debugger;
-      console.log('In Final block');
-      console.log(this.taskList);
     })
-
   }
 
   searchInTaskList(){

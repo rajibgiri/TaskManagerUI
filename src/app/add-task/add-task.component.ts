@@ -1,4 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { FormsModule} from '@angular/forms';
 import {TaskServiceService,ITask} from 'src/app/task-service.service';
 import * as moment from 'moment';
 

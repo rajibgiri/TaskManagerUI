@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
 import { TaskBoardComponent } from './task-board/task-board.component';
-import { from } from 'rxjs';
 import { SearchFilterPipe } from './search-filter.pipe';
 
 const routes: Routes = [
